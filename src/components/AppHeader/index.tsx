@@ -29,10 +29,11 @@ const AppBar = styled(MuiAppBar)<AppBarProps>(({ theme }) => ({
   height: theme.tokens.header.height
 }));
 
-const AppHeader = React.forwardRef((props: AppHeaderProps, ref) => {
+const AppHeader = React.forwardRef<HTMLDivElement, AppHeaderProps>((props: AppHeaderProps, ref) => {
   const { user, pageTitle } = props;
   const { t } = useTranslation("app");
   const theme = useTheme();
+
 
   const [count, setCount] = useState(0);
   const hours = 1;
@@ -43,9 +44,10 @@ const AppHeader = React.forwardRef((props: AppHeaderProps, ref) => {
   const countdownSeconds = (countdown % 60).toFixed(0).padStart(2, "0");
 
   useEffect(() => {
-    setInterval(() => {
-      setCount((c) => c + 1);
-    }, 1000);
+  const interval = setInterval(() => {
+    setCount((c) => c + 1);
+  }, 1000);
+    return () => clearInterval(interval); 
   }, []);
 
   return (
@@ -80,11 +82,12 @@ const AppHeader = React.forwardRef((props: AppHeaderProps, ref) => {
             </Typography>
           </Box>
           <Box sx={{ flex: 1, justifyContent: "flex-end", display: "flex" }}>
-            {user && user.eMail && (
-              <Grow in={Boolean(user && user.eMail)}>
-                <AvatarMenu user={user} />
-              </Grow>
-            )}
+<Grow in={!!user?.eMail}>
+  <div>
+    {user?.eMail && <AvatarMenu user={user} />}
+  </div>
+</Grow>
+
           </Box>
         </Box>
       </Toolbar>

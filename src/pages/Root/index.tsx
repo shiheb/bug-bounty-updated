@@ -27,7 +27,7 @@ const Root = () => {
   const userStore = useUserStore();
   const { user } = userStore || {};
   const theme = useTheme();
-  console.log(user);
+
   const routes = [...useRoutes] as readonly TRoute[];
   const [fallbackRoute] = routes;
   const Fallback = fallbackRoute.Component;
@@ -91,7 +91,7 @@ const Root = () => {
           background: "#f5f5f5"
         }}
       >
-        <Slide direction="down" in={!loadingApp} mountOnEnter>
+        <Slide direction="down" in={!loadingApp} mountOnEnter >
           <AppHeader user={user ?? {}} pageTitle={pageTitle} />
         </Slide>
         <Box

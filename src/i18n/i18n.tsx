@@ -4,6 +4,8 @@ import { initReactI18next } from "react-i18next";
 import de from "./locales/de.json";
 import en from "./locales/en.json";
 
+
+
 export const FALLBACK_LANGUAGE = "en";
 
 export interface Language {
