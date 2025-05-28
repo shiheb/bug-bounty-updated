@@ -14,6 +14,8 @@ import { useTheme } from "@mui/material/styles";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { User } from "../../api/services/User/store";
+import { ERoute } from "../../types/global";
+import { useHistory } from 'react-router-dom';
 
 interface AvatarMenuProps {
   user: User;
@@ -57,7 +59,7 @@ const AvatarMenu = React.forwardRef<HTMLDivElement, any> ((props: AvatarMenuProp
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // const history = useHistory();
+    const history = useHistory();
 
   return (
     <div>

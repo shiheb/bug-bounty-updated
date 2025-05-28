@@ -1,10 +1,11 @@
 import { Grow, Box, Theme, Toolbar, Typography } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { styled, useTheme } from "@mui/material/styles";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { User } from "../../api/services/User/store";
 import AvatarMenu from "../AvatarMenu";
+import LanguageSwitcher from "../LanguageSwitcher";
 
 interface AppBarProps extends MuiAppBarProps {
   theme?: Theme;
@@ -39,16 +40,19 @@ const AppHeader = React.forwardRef<HTMLDivElement, AppHeaderProps>((props: AppHe
   const hours = 1;
   const minutes = hours * 60;
   const seconds = minutes * 60;
-  const countdown = seconds - count;
-  const countdownMinutes = `${~~(countdown / 60)}`.padStart(2, "0");
-  const countdownSeconds = (countdown % 60).toFixed(0).padStart(2, "0");
+
+ const countdown = useMemo(() => seconds - count, [seconds,count])
+ const countdownMinutes = useMemo(() => `${~~(countdown / 60)}`.padStart(2, "0"), [countdown])
+ const countdownSeconds = useMemo(() => (countdown % 60).toFixed(0).padStart(2, "0"), [countdown])
+
 
   useEffect(() => {
+    if (countdown <= 0) return;
   const interval = setInterval(() => {
     setCount((c) => c + 1);
   }, 1000);
     return () => clearInterval(interval); 
-  }, []);
+  }, [countdown]);
 
   return (
     <AppBar ref={ref} position="fixed" sx={{ width: "100vw" }}>
@@ -58,6 +62,8 @@ const AppHeader = React.forwardRef<HTMLDivElement, AppHeaderProps>((props: AppHe
             <Typography variant="h6" component="div" color="primary">
               {countdownMinutes}:{countdownSeconds}
             </Typography>
+          
+            
           </Box>
           <Box sx={{ width: 20, height: 20, flex: 1 }} />
           <Box sx={{ flex: 2 }}>
@@ -81,13 +87,15 @@ const AppHeader = React.forwardRef<HTMLDivElement, AppHeaderProps>((props: AppHe
               {pageTitle.toLocaleUpperCase()}
             </Typography>
           </Box>
-          <Box sx={{ flex: 1, justifyContent: "flex-end", display: "flex" }}>
-<Grow in={!!user?.eMail}>
-  <div>
-    {user?.eMail && <AvatarMenu user={user} />}
-  </div>
-</Grow>
-
+      
+           
+         <Box sx={{ flex: 1, justifyContent: "flex-end", display: "flex" , gap:"20px" }}>
+         <LanguageSwitcher />
+         <Grow in={ !!user?.eMail}>
+          <div>
+            {user?.eMail && <AvatarMenu user={user} />}
+          </div>
+         </Grow>
           </Box>
         </Box>
       </Toolbar>
