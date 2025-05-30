@@ -1,10 +1,10 @@
 import { ReactElement } from 'react';
 import { render } from '@testing-library/react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+import osapiensTheme from '@/themes/default';
 
 export const renderWithTheme = (ui: ReactElement) => {
-  const theme = createTheme();
-  return render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>);
+  return render(<ThemeProvider theme={osapiensTheme.light}>{ui}</ThemeProvider>);
 };
 
 export const mockUser = {
