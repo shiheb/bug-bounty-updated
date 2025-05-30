@@ -1,25 +1,21 @@
-
-import { MenuItem, Select, Box } from '@mui/material';
-
-import { useLanguageSwitcher } from '../../hooks/useLanguageSwitcher'
-import styled from '@emotion/styled';
+import { MenuItem, Select, Box, Grow } from "@mui/material";
+import { useLanguageSwitcher } from "../../hooks/useLanguageSwitcher";
+import styled from "@emotion/styled";
 
 const StyledBox = styled(Box)`
-  background-color: #FF69B4;
+  background-color: #ff69b4;
   border-radius: 16px;
-  padding: 4px;
+  padding: 5px;
   display: flex;
   align-items: center;
-
 `;
 
 const StyledSelect = styled(Select)`
   & .MuiSelect-select {
-    padding: 5px 8px;
-    border-radius: 12px;
-    background-color: #FFC0CB;
+    padding: 5px;
+    border-radius: 16px;
+    background-color: #ffc0cb;
     font-weight: 500;
-
   }
   & fieldset {
     border: none;
@@ -28,30 +24,32 @@ const StyledSelect = styled(Select)`
 
 const StyledMenuItem = styled(MenuItem)`
   &.Mui-selected {
-     background-color: #FF69B4;
+    background-color: #ff69b4;
   }
   &:hover {
-    background-color: #FF69B4;
+    background-color: #ff69b4;
   }
-
 `;
 
 const LanguageSwitcher = () => {
-
-  const { currentLanguage, changeLanguage, defaultLanguages } = useLanguageSwitcher();
-  
+  const { currentLanguage, changeLanguage, defaultLanguages } =
+    useLanguageSwitcher();
 
   return (
     <StyledBox>
       <StyledSelect
         value={currentLanguage}
-        onChange={(event) => changeLanguage(event.target.value as string) }
+        onChange={(event) => {
+          if (event.target.value !== currentLanguage) {
+            changeLanguage(event.target.value as string);
+          }
+        }}
         variant="outlined"
-        disableUnderline
         MenuProps={{
+          TransitionComponent: Grow,
           PaperProps: {
             sx: {
-              backgroundColor: ' #FFC0CB',
+              backgroundColor: "#FFC0CB",
             },
           },
         }}
@@ -63,7 +61,7 @@ const LanguageSwitcher = () => {
         ))}
       </StyledSelect>
     </StyledBox>
-  )
-}
+  );
+};
 
-export default LanguageSwitcher
+export default LanguageSwitcher;
