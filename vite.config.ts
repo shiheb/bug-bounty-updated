@@ -22,7 +22,4 @@ export default defineConfig({
       },
     },
   },
-  server: {
-    allowedHosts: ['rgjyw3-5173.csb.app'],
-  },
 });
