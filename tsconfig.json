@@ -1,14 +1,28 @@
 {
-  "include": ["./src/**/*"],
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
-    "resolveJsonModule": true,
-    "strict": true,
-    "esModuleInterop": true,
-    "lib": ["dom", "esnext"]
-  }
+    "include": [
+        "src/types/jest.d.ts",
+        "./src/**/*",
+        "**/*.test.ts",
+        "**/*.test.tsx"
+    ],
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        },
+        "resolveJsonModule": true,
+        "strict": true,
+        "esModuleInterop": true,
+        "lib": [
+            "dom",
+            "esnext"
+        ],
+        "types": [
+            "jest",
+            "@testing-library/jest-dom"
+        ]
+    }
 }
