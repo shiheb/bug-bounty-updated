@@ -22,6 +22,14 @@
         ],
         "types": [
             "jest"
-        ]
+        ],
+        "rootDir": "src",
+        "outDir": "dist",
+        "module": "ESNext",
+        "target": "ES6",
+        "moduleResolution": "Node",
+        "noEmit": false,
+        "isolatedModules": true,
+        "skipLibCheck": true
     }
 }
