@@ -1,35 +1,23 @@
 {
-    "include": [
-        "src/types/jest.d.ts",
-        "./src/**/*",
-        "**/*.test.ts",
-        "**/*.test.tsx"
-    ],
-    "compilerOptions": {
-        "jsx": "react-jsx",
-        "baseUrl": ".",
-        "paths": {
-            "@/*": [
-                "src/*"
-            ]
-        },
-        "resolveJsonModule": true,
-        "strict": true,
-        "esModuleInterop": true,
-        "lib": [
-            "dom",
-            "esnext"
-        ],
-        "types": [
-            "jest"
-        ],
-        "rootDir": "src",
-        "outDir": "dist",
-        "module": "ESNext",
-        "target": "ES6",
-        "moduleResolution": "Node",
-        "noEmit": false,
-        "isolatedModules": true,
-        "skipLibCheck": true
-    }
+  "include": ["src/types/jest.d.ts", "./src/**/*", "**/*.test.ts", "**/*.test.tsx"],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "resolveJsonModule": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "lib": ["dom", "esnext"],
+    "types": ["jest"],
+    "rootDir": "src",
+    "outDir": "dist",
+    "module": "ESNext",
+    "target": "ES6",
+    "moduleResolution": "Node",
+    "noEmit": false,
+    "isolatedModules": true,
+    "skipLibCheck": true
+  }
 }
