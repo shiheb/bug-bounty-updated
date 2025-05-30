@@ -1,59 +1,62 @@
 import { MenuItem, Select, Box, Grow, useTheme } from '@mui/material';
 import { useLanguageSwitcher } from '../../hooks/useLanguageSwitcher';
-import styled from '@emotion/styled';
+import { styled } from '@mui/material/styles';
 
-const StyledBox = styled(Box)<{ bgColor: string }>`
-  background-color: ${props => props.bgColor};
-  border-radius: 16px;
-  padding: 4px 5px;
-  display: flex;
-  align-items: center;
+const StyledBox = styled(Box)`
+  ${({ theme }) => `
+    background-color: ${theme.tokens.color.primary};
+    border-radius: 16px;
+    padding: 4px 5px;
+    display: flex;
+    align-items: center;
+  `}
 `;
 
-const StyledSelect = styled(Select)<{ selectBg: string; textColor: string }>`
-  & .MuiSelect-select {
-    padding: 4px 10px;
-    border-radius: 12px;
-    background-color: ${props => props.selectBg};
-    color: ${props => props.textColor};
-    font-weight: 600;
-    min-width: 22px;
+const StyledSelect = styled(Select)`
+  ${({ theme }) => `
+    & .MuiSelect-select {
+      padding: 4px 10px;
+      border-radius: 12px;
+      background-color: transparent;
+      color: ${theme.tokens.color.lighten6};
+      font-weight: 600;
+      min-width: 22px;
+      text-align: center;
+    }
+
+    & fieldset {
+      border: none;
+    }
+
+    svg {
+      color: ${theme.tokens.color.lighten6};
+    }
+  `}
+`;
+
+const StyledMenuItem = styled(MenuItem)`
+  ${({ theme }) => `
+    color: ${theme.tokens.color.lighten6};
+
+    &.Mui-selected {
+      background-color: ${theme.tokens.color.lighten3};
+    }
+
+    &:hover {
+      background-color: ${theme.tokens.color.lighten3};
+    }
+
+    font-weight: 500;
     text-align: center;
-  }
-
-  & fieldset {
-    border: none;
-  }
-
-  svg {
-    color: ${props => props.textColor};
-  }
-`;
-
-const StyledMenuItem = styled(MenuItem)<{ textColor: string; hoverBg: string }>`
-  color: ${props => props.textColor};
-
-  &.Mui-selected {
-    background-color: ${props => props.hoverBg};
-  }
-
-  &:hover {
-    background-color: ${props => props.hoverBg};
-  }
-
-  font-weight: 500;
-  text-align: center;
+  `}
 `;
 
 const LanguageSwitcher = () => {
   const { currentLanguage, changeLanguage, defaultLanguages } = useLanguageSwitcher();
   const theme = useTheme();
-  const switcherBackground = theme.tokens.color.primary;
-  const menuItemHover = theme.tokens.color.lighten3;
-  const textColor = theme.tokens.color.lighten6;
 
   return (
-    <StyledBox bgColor={switcherBackground}>
+    <StyledBox>
       <StyledSelect
         value={currentLanguage}
         onChange={event => {
@@ -62,19 +65,17 @@ const LanguageSwitcher = () => {
           }
         }}
         variant="outlined"
-        selectBg="transparent"
-        textColor={textColor}
         MenuProps={{
           TransitionComponent: Grow,
           PaperProps: {
             sx: {
-              backgroundColor: switcherBackground,
+              backgroundColor: theme.tokens.color.primary,
             },
           },
         }}
       >
         {defaultLanguages.map(lang => (
-          <StyledMenuItem key={lang} value={lang} textColor={textColor} hoverBg={menuItemHover}>
+          <StyledMenuItem key={lang} value={lang}>
             {lang.toUpperCase()}
           </StyledMenuItem>
         ))}
