@@ -2,15 +2,14 @@ import { MenuItem, Select, Box, Grow, useTheme } from '@mui/material';
 import { useLanguageSwitcher } from '../../hooks/useLanguageSwitcher';
 import { styled } from '@mui/material/styles';
 
-const StyledBox = styled(Box)`
-  ${({ theme }) => `
-    background-color: ${theme.tokens.color.primary};
-    border-radius: 16px;
-    padding: 4px 5px;
-    display: flex;
-    align-items: center;
-  `}
-`;
+const StyledBox = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.tokens.color.primary,
+  borderRadius: 16,
+  padding: '4px 0',
+  display: 'flex',
+  alignItems: 'center',
+  height: 40,
+}));
 
 const StyledSelect = styled(Select)`
   ${({ theme }) => `
@@ -20,14 +19,12 @@ const StyledSelect = styled(Select)`
       background-color: transparent;
       color: ${theme.tokens.color.lighten6};
       font-weight: 600;
-      min-width: 22px;
       text-align: center;
     }
 
     & fieldset {
       border: none;
     }
-
     svg {
       color: ${theme.tokens.color.lighten6};
     }
