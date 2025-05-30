@@ -1,3 +1,3 @@
-import { default as osapiens } from "./default";
+import { default as osapiens } from './default';
 
 export { osapiens };

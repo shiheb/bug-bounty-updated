@@ -1,6 +1,6 @@
-import React, { createContext, useContext } from "react";
+import { createContext, useContext, FC } from 'react';
 
-import Store from "./store";
+import Store from './store';
 
 /* 
 CONTEXT / PROVIDER INIT
@@ -8,14 +8,10 @@ CONTEXT / PROVIDER INIT
 
 const UserStoreContext = createContext<Store | null>(null);
 
-export const StoreProvider: React.FC = (props) => {
+export const StoreProvider: FC = props => {
   const { children } = props;
 
-  return (
-    <UserStoreContext.Provider value={new Store()}>
-      {children}
-    </UserStoreContext.Provider>
-  );
+  return <UserStoreContext.Provider value={new Store()}>{children}</UserStoreContext.Provider>;
 };
 
 /* 

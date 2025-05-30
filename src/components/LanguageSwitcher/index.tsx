@@ -1,9 +1,9 @@
-import { MenuItem, Select, Box, Grow, useTheme } from "@mui/material";
-import { useLanguageSwitcher } from "../../hooks/useLanguageSwitcher";
-import styled from "@emotion/styled";
+import { MenuItem, Select, Box, Grow, useTheme } from '@mui/material';
+import { useLanguageSwitcher } from '../../hooks/useLanguageSwitcher';
+import styled from '@emotion/styled';
 
 const StyledBox = styled(Box)<{ bgColor: string }>`
-  background-color: ${(props) => props.bgColor};
+  background-color: ${props => props.bgColor};
   border-radius: 16px;
   padding: 4px 5px;
   display: flex;
@@ -14,8 +14,8 @@ const StyledSelect = styled(Select)<{ selectBg: string; textColor: string }>`
   & .MuiSelect-select {
     padding: 4px 10px;
     border-radius: 12px;
-    background-color: ${(props) => props.selectBg};
-    color: ${(props) => props.textColor};
+    background-color: ${props => props.selectBg};
+    color: ${props => props.textColor};
     font-weight: 600;
     min-width: 22px;
     text-align: center;
@@ -26,19 +26,19 @@ const StyledSelect = styled(Select)<{ selectBg: string; textColor: string }>`
   }
 
   svg {
-    color: ${(props) => props.textColor};
+    color: ${props => props.textColor};
   }
 `;
 
 const StyledMenuItem = styled(MenuItem)<{ textColor: string; hoverBg: string }>`
-  color: ${(props) => props.textColor};
+  color: ${props => props.textColor};
 
   &.Mui-selected {
-    background-color: ${(props) => props.hoverBg};
+    background-color: ${props => props.hoverBg};
   }
 
   &:hover {
-    background-color: ${(props) => props.hoverBg};
+    background-color: ${props => props.hoverBg};
   }
 
   font-weight: 500;
@@ -46,8 +46,7 @@ const StyledMenuItem = styled(MenuItem)<{ textColor: string; hoverBg: string }>`
 `;
 
 const LanguageSwitcher = () => {
-  const { currentLanguage, changeLanguage, defaultLanguages } =
-    useLanguageSwitcher();
+  const { currentLanguage, changeLanguage, defaultLanguages } = useLanguageSwitcher();
   const theme = useTheme();
   const switcherBackground = theme.tokens.color.primary;
   const menuItemHover = theme.tokens.color.lighten3;
@@ -57,7 +56,7 @@ const LanguageSwitcher = () => {
     <StyledBox bgColor={switcherBackground}>
       <StyledSelect
         value={currentLanguage}
-        onChange={(event) => {
+        onChange={event => {
           if (event.target.value !== currentLanguage) {
             changeLanguage(event.target.value as string);
           }
@@ -74,13 +73,8 @@ const LanguageSwitcher = () => {
           },
         }}
       >
-        {defaultLanguages.map((lang) => (
-          <StyledMenuItem
-            key={lang}
-            value={lang}
-            textColor={textColor}
-            hoverBg={menuItemHover}
-          >
+        {defaultLanguages.map(lang => (
+          <StyledMenuItem key={lang} value={lang} textColor={textColor} hoverBg={menuItemHover}>
             {lang.toUpperCase()}
           </StyledMenuItem>
         ))}

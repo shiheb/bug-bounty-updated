@@ -1,4 +1,4 @@
-import User from "./User";
+import User from './User';
 
 const requireAllServices = (ctx: any): React.FC<any>[] => {
   const keys = ctx.keys();

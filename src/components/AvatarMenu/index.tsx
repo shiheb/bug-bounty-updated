@@ -1,20 +1,13 @@
-import { mdiLogoutVariant, mdiTag } from "@mdi/js";
-import Icon from "@mdi/react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Divider,
-  Tooltip,
-  Typography
-} from "@mui/material";
-import { indigo } from "@mui/material/colors";
-import Menu from "@mui/material/Menu";
-import { useTheme } from "@mui/material/styles";
-import React from "react";
-import { useTranslation } from "react-i18next";
-import { User } from "../../api/services/User/store";
-import { ERoute } from "../../types/global";
+import { mdiLogoutVariant, mdiTag } from '@mdi/js';
+import Icon from '@mdi/react';
+import { Avatar, Box, Button, Divider, Tooltip, Typography } from '@mui/material';
+import { indigo } from '@mui/material/colors';
+import Menu from '@mui/material/Menu';
+import { useTheme } from '@mui/material/styles';
+import { useState, MouseEvent, forwardRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { User } from '../../api/services/User/store';
+import { ERoute } from '../../types/global';
 import { useHistory } from 'react-router-dom';
 
 interface AvatarMenuProps {
@@ -24,46 +17,43 @@ interface AvatarMenuProps {
 const getInitials = (user: User) => {
   if (user.firstName || user.lastName) {
     const initials = [user.firstName, user.lastName]
-      .map((_) => (_[0] ? _[0].toLocaleUpperCase() : _))
-      .join("");
+      .map(_ => (_[0] ? _[0].toLocaleUpperCase() : _))
+      .join('');
     return initials;
   }
-  return "";
+  return '';
 };
 
 const stringAvatar = (user: User) => {
   const initials = getInitials(user);
   // 36 * 7 <= 255
-  const r = Math.floor(parseInt(initials[0] ? initials[0] : "k", 36) * 7);
-  const g = Math.floor(parseInt(initials[1] ? initials[1] : "l", 36) * 7);
-  const b = Math.floor(
-    parseInt(user?.firstName?.[1] ? user?.firstName[1] : "m", 36) * 7
-  );
+  const r = Math.floor(parseInt(initials[0] ? initials[0] : 'k', 36) * 7);
+  const g = Math.floor(parseInt(initials[1] ? initials[1] : 'l', 36) * 7);
+  const b = Math.floor(parseInt(user?.firstName?.[1] ? user?.firstName?.[1] : 'm', 36) * 7);
   return {
-    sx: { bgcolor: `rgb(${r},${g},${b})`, cursor: "pointer" },
-    children: initials
+    sx: { bgcolor: `rgb(${r},${g},${b})`, cursor: 'pointer' },
+    children: initials,
   };
 };
 
-const AvatarMenu = React.forwardRef<HTMLDivElement, any> ((props: AvatarMenuProps, ref) => {
+const AvatarMenu = forwardRef<HTMLDivElement, AvatarMenuProps>((props: AvatarMenuProps, ref) => {
   const { user } = props;
   const theme = useTheme();
-  const { t } = useTranslation("app");
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { t } = useTranslation('app');
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-    const history = useHistory();
+  const history = useHistory();
 
   return (
     <div>
-      <Avatar onClick={handleClick} {...stringAvatar(user)} />  
+      <Avatar onClick={handleClick} {...stringAvatar(user)} />
       <Menu
         id="demo-positioned-menu"
         aria-labelledby="demo-positioned-button"
@@ -71,12 +61,12 @@ const AvatarMenu = React.forwardRef<HTMLDivElement, any> ((props: AvatarMenuProp
         open={open}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
         transformOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
       >
         <Box display="flex" flexDirection="column" alignItems="center" p={1}>
@@ -115,11 +105,11 @@ const AvatarMenu = React.forwardRef<HTMLDivElement, any> ((props: AvatarMenuProp
         </Box>
         <Divider />
         <Box display="flex" flexDirection="column" alignItems="center" p={2}>
-          <Tooltip title={<Box>{t("logout")}</Box>}>
-            <Button onClick={() => console.log("logout")} variant="text">
+          <Tooltip title={<Box>{t('logout')}</Box>}>
+            <Button onClick={() => console.log('logout')} variant="text">
               <Icon path={mdiLogoutVariant} size={1} />
               <Box m={0.5} />
-              {t("logout")}
+              {t('logout')}
             </Button>
           </Tooltip>
         </Box>
@@ -130,7 +120,7 @@ const AvatarMenu = React.forwardRef<HTMLDivElement, any> ((props: AvatarMenuProp
             size="small"
             style={{
               color: indigo[500],
-              textTransform: "none"
+              textTransform: 'none',
             }}
           >
             Data Privacy Statement
@@ -140,7 +130,7 @@ const AvatarMenu = React.forwardRef<HTMLDivElement, any> ((props: AvatarMenuProp
             size="small"
             style={{
               color: indigo[500],
-              textTransform: "none"
+              textTransform: 'none',
             }}
           >
             Imprint
@@ -150,5 +140,7 @@ const AvatarMenu = React.forwardRef<HTMLDivElement, any> ((props: AvatarMenuProp
     </div>
   );
 });
+
+AvatarMenu.displayName = 'AvatarMenu';
 
 export default AvatarMenu;

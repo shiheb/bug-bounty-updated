@@ -1,8 +1,8 @@
 export enum ERoute {
-  ROOT = "/",
-  HOME = "/home",
-  SETTINGS_ACCOUNT = "/settings-account",
-  SETTINGS_DETAILS = "/settings-details"
+  ROOT = '/',
+  HOME = '/home',
+  SETTINGS_ACCOUNT = '/settings-account',
+  SETTINGS_DETAILS = '/settings-details',
 }
 
 export type TRoute = {
@@ -14,8 +14,8 @@ export type TRoute = {
 export type PathParams = { [i: string]: string };
 
 export enum ActionResultStatus {
-  SUCCESS = "SUCCESS",
-  ERROR = "ERROR"
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
 }
 
 export type ActionSuccess<T> = {

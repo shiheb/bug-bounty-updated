@@ -57,25 +57,25 @@ export interface OsapiensThemeTokens {
 }
 
 export const colors: OsapiensColors = {
-  primary: "#4bc676",
-  secondary: "#407d6a",
-  success: "#90c62c",
-  warning: "#eebf00",
-  error: "#d55342",
-  lighten0: "rgba(255, 255, 255, 0.03)",
-  lighten1: "rgba(255, 255, 255, 0.05)",
-  lighten2: "rgba(255, 255, 255, 0.12)",
-  lighten3: "rgba(255, 255, 255, 0.24)",
-  lighten4: "rgba(255, 255, 255, 0.38)",
-  lighten5: "rgba(255, 255, 255, 0.5)",
-  lighten6: "rgba(255, 255, 255, 0.85)",
-  darken0: "rgba(0, 0, 0, 0.03)",
-  darken1: "rgba(0, 0, 0, 0.07)",
-  darken2: "rgba(0, 0, 0, 0.12)",
-  darken3: "rgba(0, 0, 0, 0.24)",
-  darken4: "rgba(0, 0, 0, 0.38)",
-  darken5: "rgba(0, 0, 0, 0.5)",
-  darken6: "rgba(0, 0, 0, 0.85)"
+  primary: '#4bc676',
+  secondary: '#407d6a',
+  success: '#90c62c',
+  warning: '#eebf00',
+  error: '#d55342',
+  lighten0: 'rgba(255, 255, 255, 0.03)',
+  lighten1: 'rgba(255, 255, 255, 0.05)',
+  lighten2: 'rgba(255, 255, 255, 0.12)',
+  lighten3: 'rgba(255, 255, 255, 0.24)',
+  lighten4: 'rgba(255, 255, 255, 0.38)',
+  lighten5: 'rgba(255, 255, 255, 0.5)',
+  lighten6: 'rgba(255, 255, 255, 0.85)',
+  darken0: 'rgba(0, 0, 0, 0.03)',
+  darken1: 'rgba(0, 0, 0, 0.07)',
+  darken2: 'rgba(0, 0, 0, 0.12)',
+  darken3: 'rgba(0, 0, 0, 0.24)',
+  darken4: 'rgba(0, 0, 0, 0.38)',
+  darken5: 'rgba(0, 0, 0, 0.5)',
+  darken6: 'rgba(0, 0, 0, 0.85)',
 };
 
 export const fonts: OsapiensFont[] = [];
@@ -83,7 +83,7 @@ export const fonts: OsapiensFont[] = [];
 export const tokens: OsapiensThemeTokens = {
   color: colors,
   style: {
-    radius: 4
+    radius: 4,
   },
   breakpoints: {
     breakpointXs: 0,
@@ -94,18 +94,18 @@ export const tokens: OsapiensThemeTokens = {
     breakpointMobile: 340,
     breakpointTablet: 640,
     breakpointLaptop: 800,
-    breakpointDesktop: 1024
+    breakpointDesktop: 1024,
   },
   fonts,
   images: {
-    background: "transparent" // require("!!url-loader!./assets/background-pattern.svg"),
+    background: 'transparent', // require("!!url-loader!./assets/background-pattern.svg"),
   },
   tabbedHeader: {
-    height: "80px"
+    height: '80px',
   },
   header: {
-    height: "64px"
-  }
+    height: '64px',
+  },
 };
 
 export default tokens;
