@@ -21,6 +21,15 @@ export default defineConfig({
       output: {
         manualChunks: {
           react: ['react', 'react-dom'],
+          vendor: [
+            '@emotion/react',
+            '@emotion/styled',
+            'mobx',
+            'mobx-react',
+            'i18next',
+            'react-i18next',
+          ],
+          material: ['@mui/material'],
         },
       },
     },
