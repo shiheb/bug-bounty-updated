@@ -13,6 +13,9 @@ export default defineConfig({
       brotliSize: false,
     }),
   ],
+  server: {
+    allowedHosts: ['rj3p7h-5173.csb.app'],
+  },
   build: {
     rollupOptions: {
       output: {
