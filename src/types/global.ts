@@ -7,7 +7,7 @@ export enum ERoute {
 
 export type TRoute = {
   path: ERoute;
-  Icon?: React.FC | JSX.Element;
+  Icon?: React.FC | React.JSX.Element;
   Component: React.FC; // React components have to be written in Capitalized!
 };
 

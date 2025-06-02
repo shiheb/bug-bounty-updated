@@ -1,6 +1,5 @@
 import React from 'react';
-import { screen, within, waitFor } from '@testing-library/react';
-import { act } from 'react'; // Better import for React 18
+import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import LanguageSwitcher from '.';
@@ -36,9 +35,7 @@ describe('LanguageSwitcher component', () => {
   it('opens the menu and displays all language options', async () => {
     const user = userEvent.setup();
     renderWithTheme(<LanguageSwitcher />);
-    await act(async () => {
-      await user.click(screen.getByText('EN'));
-    });
+    await user.click(screen.getByText('EN'));
     const listbox = await screen.findByRole('listbox');
     const options = within(listbox).getAllByRole('option');
     expect(options).toHaveLength(2);
@@ -49,29 +46,18 @@ describe('LanguageSwitcher component', () => {
   it('calls changeLanguage when a different language is selected', async () => {
     const user = userEvent.setup();
     renderWithTheme(<LanguageSwitcher />);
-
-    await act(async () => {
-      await user.click(screen.getByText('EN'));
-    });
+    await user.click(screen.getByText('EN'));
     const listbox = await screen.findByRole('listbox');
-    await act(async () => {
-      await user.click(within(listbox).getByText('DE'));
-    });
-
+    await user.click(within(listbox).getByText('DE'));
     expect(mockChangeLanguage).toHaveBeenCalledWith('de');
   });
 
   it('does not call changeLanguage when the same language is re-selected', async () => {
     const user = userEvent.setup();
     renderWithTheme(<LanguageSwitcher />);
-
-    await act(async () => {
-      await user.click(screen.getByText('EN'));
-    });
+    await user.click(screen.getByText('EN'));
     const listbox = await screen.findByRole('listbox');
-    await act(async () => {
-      await user.click(within(listbox).getByText('EN'));
-    });
+    await user.click(within(listbox).getByText('EN'));
     expect(mockChangeLanguage).not.toHaveBeenCalled();
   });
 });

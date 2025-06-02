@@ -9,7 +9,7 @@ export const FALLBACK_LANGUAGE = 'en';
 export interface Language {
   locale: string;
   name: string;
-  icon: JSX.Element;
+  icon: React.JSX.Element;
 }
 
 const getBrowserLanguage = () => {

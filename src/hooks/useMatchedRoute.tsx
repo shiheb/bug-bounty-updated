@@ -1,5 +1,5 @@
 import { Box, Fade, Grow, Slide } from '@mui/material';
-import { FC, ReactNode, useMemo } from 'react';
+import React, { FC, ReactNode, useMemo } from 'react';
 import { matchPath, PathPattern, Route, Routes, useLocation } from 'react-router';
 import { PathParams, TRoute } from '../types/global';
 import { validateParams } from '../utils/router';
@@ -22,7 +22,7 @@ const useMatchedRoute = (
 ): {
   route: TRoute | undefined;
   params: PathParams | {};
-  MatchedElement: JSX.Element;
+  MatchedElement: React.JSX.Element;
 } => {
   const { notFoundComponent, matchOnSubPath, transition = 'fade' } = options || {};
   const location = useLocation();

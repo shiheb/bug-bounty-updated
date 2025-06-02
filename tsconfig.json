@@ -21,14 +21,16 @@
       "esnext"
     ],
     "types": [
+      "react",
+      "react-dom",
       "jest",
       "node"
     ],
     "rootDir": "src",
     "outDir": "dist",
     "module": "ESNext",
-    "target": "ES6",
-    "moduleResolution": "Node",
+    "target": "ESNext",
+    "moduleResolution": "node",
     "noEmit": false,
     "isolatedModules": true,
     "skipLibCheck": true
