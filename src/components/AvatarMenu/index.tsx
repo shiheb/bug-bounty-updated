@@ -77,7 +77,7 @@ const AvatarMenu = forwardRef<HTMLDivElement, AvatarMenuProps>((props: AvatarMen
           </Typography>
           <Box m={1} />
           <Button
-            onClick={() => navigate(ERoute.SETTINGS_ACCOUNT)}
+            // onClick={() => navigate(ERoute.SETTINGS_ACCOUNT)}
             variant="outlined"
             color="primary"
             size="medium"
@@ -94,7 +94,7 @@ const AvatarMenu = forwardRef<HTMLDivElement, AvatarMenuProps>((props: AvatarMen
           style={{ color: theme.palette.grey[500] }}
         >
           <Button
-            onClick={() => navigate(ERoute.SETTINGS_DETAILS)}
+            // onClick={() => navigate(ERoute.SETTINGS_DETAILS)}
             color="inherit"
             variant="text"
             size="small"
