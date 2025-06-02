@@ -1,6 +1,6 @@
 import { Suspense, FC, ReactNode } from 'react';
 import { SnackbarProvider } from 'notistack';
-import { HashRouter } from 'react-router-dom';
+import { RouterProvider, createHashRouter } from 'react-router';
 
 import services from './api/services';
 import { CssBaseline } from '@mui/material';
@@ -22,10 +22,16 @@ const CombinedStoreProvider: FC<CombinedStoreProviderProps> = ({ children }) => 
   return <UserStoreProvider>{children}</UserStoreProvider>;
 };
 
+const router = createHashRouter([
+  {
+    path: '/*',
+    element: <RootComponent />,
+  },
+]);
+
 const AppContainer: FC = () => {
   return (
     <>
-      {/* Kickstart a simple scoped CSS baseline to build upon. */}
       <CssBaseline />
       <Suspense fallback={<div>loading...</div>}>
         <CombinedStoreProvider>
@@ -33,15 +39,9 @@ const AppContainer: FC = () => {
             maxSnack={3}
             autoHideDuration={3000}
             anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            // You can customize other props if needed, like:
-            // preventDuplicate
-            // dense
-            // iconVariant={{ success: <SuccessIcon />, error: <ErrorIcon />, ... }}
           >
             <ThemeProvider theme={theme}>
-              <HashRouter>
-                <RootComponent />
-              </HashRouter>
+              <RouterProvider router={router} />
             </ThemeProvider>
           </SnackbarProvider>
         </CombinedStoreProvider>

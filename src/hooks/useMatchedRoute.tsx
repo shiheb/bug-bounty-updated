@@ -1,6 +1,6 @@
 import { Box, Fade, Grow, Slide } from '@mui/material';
 import { FC, ReactNode, useMemo } from 'react';
-import { matchPath, Route, Routes, useLocation } from 'react-router-dom';
+import { matchPath, PathPattern, Route, Routes, useLocation } from 'react-router';
 import { PathParams, TRoute } from '../types/global';
 import { validateParams } from '../utils/router';
 
@@ -11,7 +11,7 @@ interface UseMatchedRouteOptions {
 }
 
 interface TransitionProps {
-  match: any;
+  match: boolean;
   children: ReactNode;
 }
 
@@ -30,7 +30,11 @@ const useMatchedRoute = (
   // Find all matching routes for current location
   const results = routes
     .map(route => {
-      const match = matchPath({ path: route.path, end: !matchOnSubPath }, location.pathname);
+      const pattern: PathPattern = {
+        path: route.path,
+        end: !matchOnSubPath,
+      };
+      const match = matchPath(pattern, location.pathname);
       return { route, match };
     })
     .filter(({ match }) => !!match);
@@ -43,7 +47,7 @@ const useMatchedRoute = (
   const Transition: FC<TransitionProps> = useMemo(() => {
     if (transition === 'fade') {
       const FadeTransition: FC<TransitionProps> = ({ children, match }) => (
-        <Fade in={!!match} timeout={300} unmountOnExit>
+        <Fade in={match} timeout={300} unmountOnExit>
           <Box height="100%">{children}</Box>
         </Fade>
       );
@@ -52,18 +56,18 @@ const useMatchedRoute = (
 
     if (transition === 'grow') {
       const GrowTransition: FC<TransitionProps> = ({ children, match }) => (
-        <Grow in={!!match} timeout={300} unmountOnExit>
+        <Grow in={match} timeout={300} unmountOnExit>
           <Box height="100%">{children}</Box>
         </Grow>
       );
       return GrowTransition;
     }
 
-    if (transition.startsWith('slide')) {
+    if (transition?.startsWith('slide')) {
       const [, direction] = transition.split('-');
       const SlideTransition: FC<TransitionProps> = ({ children, match }) => (
         <Slide
-          in={!!match}
+          in={match}
           direction={direction as 'left' | 'right' | 'up' | 'down'}
           timeout={300}
           unmountOnExit
@@ -86,15 +90,15 @@ const useMatchedRoute = (
       <Routes>
         {matchOnSubPath &&
           routes.map(({ path, Component: RouteComponent }) => {
-            const subPath = `/${path.split('/').slice(1, 2)}/*`;
-            const match = matchPath({ path: subPath }, location.pathname);
+            const subPath = `${path.split('/').slice(1, 2)}/*`;
+            const match = matchPath(subPath, location.pathname);
 
             return (
               <Route
-                key={path + 'matchOnSubPath'}
+                key={`${path}-matchOnSubPath`}
                 path={subPath}
                 element={
-                  <Transition match={match}>
+                  <Transition match={!!match}>
                     <RouteComponent />
                   </Transition>
                 }
@@ -103,14 +107,18 @@ const useMatchedRoute = (
           })}
 
         {routes.map(({ path, Component: RouteComponent }) => {
-          const match = matchPath({ path, end: true }, location.pathname);
+          const pattern: PathPattern = {
+            path,
+            end: true,
+          };
+          const match = matchPath(pattern, location.pathname);
 
           return (
             <Route
-              key={path + 'root'}
+              key={`${path}-root`}
               path={path}
               element={
-                <Transition match={match}>
+                <Transition match={!!match}>
                   <RouteComponent />
                 </Transition>
               }
