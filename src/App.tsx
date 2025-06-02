@@ -1,13 +1,10 @@
-import { Suspense, FC } from 'react';
+import { Suspense, FC, ReactNode } from 'react';
 import { SnackbarProvider } from 'notistack';
-
 import { HashRouter } from 'react-router-dom';
 
 import services from './api/services';
-
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
-import StylesProvider from '@mui/styles/StylesProvider';
 
 import RootComponent from './pages/Root/index';
 import { osapiens } from './themes';
@@ -17,43 +14,35 @@ import { StoreProvider as UserStoreProvider } from './api/services/User';
 
 const theme = osapiens.light;
 
-const PREFIX = 'App';
+interface CombinedStoreProviderProps {
+  children: ReactNode;
+}
 
-const classes = {
-  success: `${PREFIX}-success`,
-  error: `${PREFIX}-error`,
-  warning: `${PREFIX}-warning`,
-  info: `${PREFIX}-info`,
-};
-
-const CombinedStoreProvider: FC = ({ children }) => {
+const CombinedStoreProvider: FC<CombinedStoreProviderProps> = ({ children }) => {
   return <UserStoreProvider>{children}</UserStoreProvider>;
 };
 
-const AppContainer = () => {
+const AppContainer: FC = () => {
   return (
     <>
-      <CssBaseline />
       {/* Kickstart a simple scoped CSS baseline to build upon. */}
-      {/* Required to override Material-UI's styles via CSS modules. */}
+      <CssBaseline />
       <Suspense fallback={<div>loading...</div>}>
         <CombinedStoreProvider>
           <SnackbarProvider
             maxSnack={3}
-            classes={{
-              variantSuccess: classes.success,
-              variantError: classes.error,
-              variantWarning: classes.warning,
-              variantInfo: classes.info,
-            }}
+            autoHideDuration={3000}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            // You can customize other props if needed, like:
+            // preventDuplicate
+            // dense
+            // iconVariant={{ success: <SuccessIcon />, error: <ErrorIcon />, ... }}
           >
-            <StylesProvider injectFirst>
-              <ThemeProvider theme={theme}>
-                <HashRouter>
-                  <RootComponent />
-                </HashRouter>
-              </ThemeProvider>
-            </StylesProvider>
+            <ThemeProvider theme={theme}>
+              <HashRouter>
+                <RootComponent />
+              </HashRouter>
+            </ThemeProvider>
           </SnackbarProvider>
         </CombinedStoreProvider>
       </Suspense>

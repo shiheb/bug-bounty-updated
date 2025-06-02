@@ -8,7 +8,7 @@ import { useState, MouseEvent, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { User } from '../../api/services/User/store';
 import { ERoute } from '../../types/global';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface AvatarMenuProps {
   user: User;
@@ -40,6 +40,8 @@ const AvatarMenu = forwardRef<HTMLDivElement, AvatarMenuProps>((props: AvatarMen
   const { user } = props;
   const theme = useTheme();
   const { t } = useTranslation('app');
+
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -49,7 +51,6 @@ const AvatarMenu = forwardRef<HTMLDivElement, AvatarMenuProps>((props: AvatarMen
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const history = useHistory();
 
   return (
     <div>
@@ -76,7 +77,7 @@ const AvatarMenu = forwardRef<HTMLDivElement, AvatarMenuProps>((props: AvatarMen
           </Typography>
           <Box m={1} />
           <Button
-            // onClick={() => history.push(ERoute.SETTINGS_ACCOUNT)}
+            // onClick={() => navigate(ERoute.SETTINGS_ACCOUNT)}
             variant="outlined"
             color="primary"
             size="medium"
@@ -93,7 +94,7 @@ const AvatarMenu = forwardRef<HTMLDivElement, AvatarMenuProps>((props: AvatarMen
           style={{ color: theme.palette.grey[500] }}
         >
           <Button
-            // onClick={() => history.push(ERoute.SETTINGS_DETAILS)}
+            // onClick={() => navigate(ERoute.SETTINGS_DETAILS)}
             color="inherit"
             variant="text"
             size="small"

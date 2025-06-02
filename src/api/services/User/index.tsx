@@ -1,4 +1,4 @@
-import { createContext, useContext, FC } from 'react';
+import { createContext, useContext, FC, ReactNode } from 'react';
 
 import Store from './store';
 
@@ -6,11 +6,15 @@ import Store from './store';
 CONTEXT / PROVIDER INIT
 */
 
+// Context stores Store instance or null
 const UserStoreContext = createContext<Store | null>(null);
 
-export const StoreProvider: FC = props => {
-  const { children } = props;
+// Define props with children properly typed
+interface StoreProviderProps {
+  children: ReactNode;
+}
 
+export const StoreProvider: FC<StoreProviderProps> = ({ children }) => {
   return <UserStoreContext.Provider value={new Store()}>{children}</UserStoreContext.Provider>;
 };
 

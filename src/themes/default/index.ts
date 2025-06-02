@@ -86,10 +86,44 @@ const commonTheme = {
       desktop: tokens.breakpoints.breakpointDesktop,
     },
   },
-  overrides: {
+  components: {
     MuiCssBaseline: {
-      '@global': {
+      styleOverrides: {
         '@font-face': fonts,
+      },
+    },
+    MuiSnackbar: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          fontWeight: 500,
+        },
+      },
+    },
+    MuiSnackbarContent: {
+      styleOverrides: {
+        root: {
+          padding: '8px 16px',
+          fontSize: '0.875rem',
+          borderRadius: 8,
+          fontWeight: 500,
+          '&.notistack-success': {
+            backgroundColor: '#90c62c',
+            color: '#fff',
+          },
+          '&.notistack-error': {
+            backgroundColor: '#d55342',
+            color: '#fff',
+          },
+          '&.notistack-warning': {
+            backgroundColor: '#eebf00',
+            color: '#fff',
+          },
+          '&.notistack-info': {
+            backgroundColor: '#407d6a',
+            color: '#fff',
+          },
+        },
       },
     },
   },
