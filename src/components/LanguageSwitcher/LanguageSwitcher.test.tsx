@@ -1,5 +1,6 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, within, waitFor } from '@testing-library/react';
+import { act } from 'react'; // Better import for React 18
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import LanguageSwitcher from '.';
@@ -26,36 +27,51 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-describe('render LanguageSwitcher component', () => {
+describe('LanguageSwitcher component', () => {
   it('renders with the current language selected', () => {
     renderWithTheme(<LanguageSwitcher />);
-    const button = screen.getByRole('button');
-    expect(button).toBeInTheDocument();
-    expect(button).toHaveTextContent('EN');
+    expect(screen.getByText('EN')).toBeInTheDocument();
   });
 
   it('opens the menu and displays all language options', async () => {
     const user = userEvent.setup();
     renderWithTheme(<LanguageSwitcher />);
-    await user.click(screen.getByRole('button'));
-    const options = screen.getAllByRole('option');
+    await act(async () => {
+      await user.click(screen.getByText('EN'));
+    });
+    const listbox = await screen.findByRole('listbox');
+    const options = within(listbox).getAllByRole('option');
     expect(options).toHaveLength(2);
-    expect(options.map(o => o.textContent)).toEqual(expect.arrayContaining(['EN', 'DE']));
+    expect(options[0]).toHaveTextContent('EN');
+    expect(options[1]).toHaveTextContent('DE');
   });
 
   it('calls changeLanguage when a different language is selected', async () => {
     const user = userEvent.setup();
     renderWithTheme(<LanguageSwitcher />);
-    await user.click(screen.getByRole('button'));
-    await user.click(screen.getByRole('option', { name: 'DE' }));
+
+    await act(async () => {
+      await user.click(screen.getByText('EN'));
+    });
+    const listbox = await screen.findByRole('listbox');
+    await act(async () => {
+      await user.click(within(listbox).getByText('DE'));
+    });
+
     expect(mockChangeLanguage).toHaveBeenCalledWith('de');
   });
 
   it('does not call changeLanguage when the same language is re-selected', async () => {
     const user = userEvent.setup();
     renderWithTheme(<LanguageSwitcher />);
-    await user.click(screen.getByRole('button'));
-    await user.click(screen.getByRole('option', { name: 'EN' }));
+
+    await act(async () => {
+      await user.click(screen.getByText('EN'));
+    });
+    const listbox = await screen.findByRole('listbox');
+    await act(async () => {
+      await user.click(within(listbox).getByText('EN'));
+    });
     expect(mockChangeLanguage).not.toHaveBeenCalled();
   });
 });

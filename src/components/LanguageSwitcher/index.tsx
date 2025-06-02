@@ -55,6 +55,7 @@ const LanguageSwitcher = () => {
   return (
     <StyledBox>
       <StyledSelect
+        data-testid="language-switcher"
         value={currentLanguage}
         onChange={event => {
           if (event.target.value !== currentLanguage) {

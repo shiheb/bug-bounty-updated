@@ -12,9 +12,8 @@ jest.mock('react-i18next', () => ({
 }));
 
 jest.mock('react-router-dom', () => ({
-  useHistory: () => ({
-    push: jest.fn(),
-  }),
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => jest.fn(),
 }));
 
 describe('render AvatarMenu component', () => {
